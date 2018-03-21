@@ -1,10 +1,42 @@
-<?php header('Content-Type: application/javascript'); ?>
+<?php 
+require_once('../../api/rain.php');
+$list = get('asc');
+if(empty($list)) {
+	header('Content-Type: application/javascript');
+	print("$('#chart--rain').html('<p>No historical rain data to display</p>')");
+	exit();
+}
+header('Content-Type: application/javascript'); ?>
 
 var chart = new Chartist.Line('#chart--rain', {
-  labels: ['January', 'February', 'March'],
+  //labels: ['January', 'February', 'March'],
+<?php
+	echo 'labels: [';
+	$count = 1;
+	foreach($list as $entry) {
+		echo "'" . date('M d', strtotime($entry['date'])) . "'";
+		if($count != sizeof($list)) {
+			echo ',';
+			$count++;
+		}
+	}
+	echo '],';
+?>
   series: [
-    [2.5, 1, 4],	// Manually recorded data
-	[2.3, .8, 3.5]	// Derived from weather data
+	<?php
+		echo '[';
+		$count = 1;
+		foreach($list as $entry) {
+			echo "'" . $entry['amount'] . "'";
+			if($count != sizeof($list)) {
+				echo ',';
+				$count++;
+			}
+		}
+		echo '],';
+	?>
+    //[2.5, 1, 4]
+	/*	[2.3, .8, 3.5]      Derived from weather data */
   ]
 }, {
   fullWidth: true,

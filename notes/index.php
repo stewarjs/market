@@ -30,7 +30,7 @@ $page->header();
 </div>
 <div class="note__footer">
 <button class="button button--gray note__button--edit">Edit</button>
-<button class="button button--gray note__button--delete">Delete</button>
+<button class="button button--gray button--red">Delete</button>
 </div>
 	
 </div>

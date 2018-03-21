@@ -6,6 +6,10 @@ body {
 	z-index: 1000;
 }
 
+.modal__window {
+	z-index: 1000;
+}
+
 .logo__icon {
     width: 30px;
     height: 30px;
@@ -132,6 +136,19 @@ table {
 	color: #767676;
 }
 
+.card--selection {
+    width: 160px;
+    height: 130px;
+    border-radius: 10px;
+	padding: 10px 30px;
+	display: inline-block;
+	transition: .3s ease border;
+}
+
+.card--selection:hover, .card--selection:focus {
+	border-color: #146e97;
+}
+
 .garden {
 	max-width: 200px;
 	width: 100%;
@@ -139,9 +156,10 @@ table {
 	display: inline-block;
 	vertical-align: top;
 	box-shadow: none;
-	-webkit-box-shadow: none;
 	border: none;
 	border-right: 1px solid #eaeaea;
+	text-decoration: none !important;
+	position: relative;
 }
 
 .garden:nth-last-child(2) {
@@ -177,10 +195,12 @@ table {
     height: 80px;
     margin: 10px auto;
     display: block;
+	transition: .3s ease fill;
 }
 
 .garden__icon--green {
 	fill: #30ca00;
+	transition: .3s ease fill;
 }
 
 .garden__heading {
@@ -192,6 +212,11 @@ table {
 .garden--add .garden__heading {
 	font-weight: normal !important;
 	text-align: center;
+}
+
+.garden:hover .garden__icon, .garden:hover .garden__heading, .garden:focus .garden__icon, .garden:focus .garden__heading {
+    fill: #146e97;
+    color: #146e97;
 }
 
 .garden__list {
@@ -220,52 +245,43 @@ table {
     padding: 0 10px;
 }
 
+.activity__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 .activity {
     background-color: #fafafb;
     border-bottom: 1px solid #e1e1e1;
-    padding: 10px;
+    padding: 10px 20px;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     line-height: 2.4rem;
+	width: 100%;
+	text-align: left;
 }
 
-.activity__button {
-    padding: 5px;
-    border: 2px solid #e1e1e1;
-    border-radius: 90%;
-    display: inline;
-    vertical-align: middle;
-    margin: 0;
-	transition: .3s ease border;
-}
-
-.activity__button .icon {
-	width: 25px;
-	height: 25px;
+.activity__icon {
+	width: 50px;
+	height: 39px;
+	fill: #00ca00;
 }
 
 .activity__name {
-    margin: 0 0 0 10px;
     width: 100%;
+	margin: 0 0 0 10px;
 }
 
 .activity__date {
-    font-size: .8rem;
+    font-size: .7rem;
     width: 100%;
     text-align: right;
 }
 
-.activity:hover {
+.activity:hover, .activity:focus {
     background-color: #f1f6fd;
-}
-
-.activity__button:hover, .activity__button:focus {
-    border-color: #30ca00;
-}
-
-.activity__button:hover .icon, .activity__button:focus .icon {
-    fill: #30ca00;
 }
 
 .note {
@@ -299,12 +315,12 @@ table {
     text-align: right;
 }
 
-.note__button--edit, .note__button--delete {
+.note__button--edit, .button--red {
     font-size: .9rem;
     border: 1px solid #e1e1e1;
 }
 
-.note__button--delete:hover, .note__button--delete:focus {
+.button--red:hover, .button--red:focus {
     background-color: #980000;
 }
 
@@ -320,6 +336,40 @@ input[type="search"].search {
     margin: 0;
     border: 1px solid #e1e1e1;
     vertical-align: middle;
+}
+
+input[type="number"], input[type="date"] {
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #cccccc;
+    width: 100%;
+}
+
+input[type="checkbox"].bird {
+	position: absolute;
+	left: -9999px;
+}
+.garden.bird:before {
+	content: '';
+	font-size: 2rem;
+	border: 2px solid #146e97;
+	border-radius: 90%;
+	width: 27px;
+	height: 27px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+	color: #146e97;
+}
+
+input[type="checkbox"]:checked + .garden.bird:before {
+	content: '✔';
+}
+
+input[type="checkbox"]:checked + .garden > .garden__icon, input[type="checkbox"]:focus + .garden > .garden__icon, input[type="checkbox"]:hover + .garden > .garden__icon {
+	fill: #146e97;
+	color: #146e97;
 }
 
 @media (max-width: 895px) {

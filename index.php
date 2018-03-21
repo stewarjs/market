@@ -14,6 +14,8 @@ $page->header();
 <div class="page__header">     	
 	<h2 class="heading--small">Market Garden</h2>
 	<!-- Year Selection -->
+	<button id="fertilize" class="button button--gray">Fertilize</button>
+	<button id="harvest" class="button button--gray">Harvest</button>
 </div>
 <div class="inline-grid">
 <div class="card garden">

@@ -29,6 +29,7 @@ class page {
 		}
 	}
 	
+	
 	public function get_scripts() {
 		if(!empty($this->scripts)) {
 			foreach($this->scripts as $script) {
