@@ -6,6 +6,7 @@
     <title><?php print($page->title . ' | ' . $page->app_name); ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#9b9b9b">
+	<link rel="manifest" href="/manifest.json">
 	<meta name="robots" content="noindex">
     <link href="/core/framework/css/nfc.framework.css" type="text/css" rel="stylesheet">
 	<?php $page->get_styles(); ?>
