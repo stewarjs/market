@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><?php print($page->title . ' | ' . $page->app_name); ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#0e80a7">
-
+    <meta name="theme-color" content="#9b9b9b">
+	<meta name="robots" content="noindex">
     <link href="/core/framework/css/nfc.framework.css" type="text/css" rel="stylesheet">
 	<?php $page->get_styles(); ?>
 	<link href="/core/framework/css/theme.css" type="text/css" rel="stylesheet">
