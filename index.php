@@ -7,43 +7,50 @@ $page = new page();
 $page->title('Home');
 $page->header();
 
+if(isset($_POST['username']) && isset($_POST['password'])) {
+	$status = $page->login($_POST['username'], $_POST['password']);
+	
+	if($status !== true) {
+		header('Location: index.php?error='. $status);
+	}else{
+		header('Location: /garden/');
+	}
+}
+
+if(isset($_GET['logout'])) {
+	$page->logout();
+}
 
 ?>
 
 <section>
-<div class="page__header">     	
-	<h2 class="heading--small">Market Garden</h2>
-	<!-- Year Selection -->
-	<button id="fertilize" class="button button--gray">Fertilize</button>
-	<button id="harvest" class="button button--gray">Harvest</button>
-</div>
-<div class="inline-grid">
-<div class="card garden">
-	<svg class="garden__icon garden__icon--green" role="presentation"><use xlink:href="#framework_svg_leaf" /></svg>
-	<h3 class="heading--label garden__heading">Bed 1</h3>
-	<ul class="garden__list">
-		<li>Tomatoes</li>
-		<li>Peppers</li>
-		<li>Nasturtium</li>
-	</ul>
-</div>
-	
-<div class="card garden">
-	<svg class="garden__icon garden__icon--green" role="presentation"><use xlink:href="#framework_svg_leaf" /></svg>
-	<h3 class="heading--label garden__heading">Bed 2</h3>
-	<ul class="garden__list">
-		<li>Beans</li>
-	</ul>
-</div>
-	
-<button class="card garden garden--add">
-	<svg class="garden__icon" viewBox="0 0 20 20">
-		<path d="M10,1.6c-4.639,0-8.4,3.761-8.4,8.4s3.761,8.4,8.4,8.4s8.4-3.761,8.4-8.4S14.639,1.6,10,1.6z M15,11h-4v4H9
-	v-4H5V9h4V5h2v4h4V11z"/>
-</svg>
-	<h3 class="heading--label garden__heading">Add New Bed</h3>
-</button>
-	
+<div class="card card--sign-in align--left">
+            
+	<h3 class="heading--medium align--center">Sign In</h3>
+		
+		<?php
+			if(isset($_GET['error'])) {
+				$error = $page->error_to_string($_GET['error']);
+				$error = '<div class="align--center">'.
+						'<div id="login-error" class="toast toast--error align--center">'.
+        				'<svg class="icon" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#framework_svg_cross"></use></svg>'.
+        				'<span role="alert">ERROR: '. $error .'</span></div></div>';
+			}
+		?>
+		<form method="post" action="index.php"<?php (isset($error) ? print(' aria-describedby="login-error"') : false) ?>>
+		<?php (isset($error) ? print($error) : false) ?>
+		<p>Please sign in with your credentials below. The User ID and Password fields are required and marked with an asteriks.</p>
+
+			<label for="username" class="username"><svg focusable="false" class="icon" role="presentation"><use xlink:href="#framework_svg_SingleUser" /></svg>User Name <abbr title="This field requires input" class="label__required-field">*</abbr></label>
+			<input type="text" id="username" name="username" required />
+
+			<label for="password" class="password"><svg class="icon" role="presentation"><use xlink:href="#framework_svg_Lock" /></svg>Password <abbr title="This field requires input" class="label__required-field">*</abbr></label>
+			<input type="password" id="password" name="password" required />
+
+			<button type="submit" class="button button--blue button--full-width">Sign In</button>
+
+		</form>
+
 </div>
 </section>   
 <?php

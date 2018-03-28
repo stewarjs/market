@@ -28,7 +28,7 @@
 
         </header>
         <?php 
-			if(strpos(dirname($_SERVER['PHP_SELF']), 'auth') === false){
+			if(dirname($_SERVER['PHP_SELF']) != '\\'){
 				$page->menu('sidemenu');
 				echo '<main class="layout--two-column" id="main">';
 			}else{

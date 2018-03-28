@@ -1,21 +1,25 @@
 <?php
-
-class page {
+require(__DIR__.'/../../auth/index.php');
+class page extends authentication {
 	
 	private $template_directory = __DIR__.'/templates/';
 	private $require_login = false;
 	public $app_name = 'Market Garden';
-	public $title = '';	
+	public $title = '';
 	private $scripts = [];
 	private $styles = [];
 	
 	function __construct() {
-		/*session_start();
-		if($this->require_login === true && !isset($_SESSION['active']) && !isset($_REQUEST['login'])) {
+		date_default_timezone_set('America/Chicago');
+		if(!isset($_SESSION)) {
+			session_start();
+		}
+		//$_SESSION['Login_Attempts'] = 0;
+		if($this->is_logged_in() != true && dirname($_SERVER['PHP_SELF']) != '\\') {
 			
-			header('Location: /apps/management/auth/?page='.$_SERVER['PHP_SELF'].'&login');
+			header('Location: /index.php');
 			
-		}*/
+		}
 		
 	}
 
@@ -28,7 +32,6 @@ class page {
 			array_push($this->scripts, $path);
 		}
 	}
-	
 	
 	public function get_scripts() {
 		if(!empty($this->scripts)) {

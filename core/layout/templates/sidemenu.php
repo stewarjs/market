@@ -1,7 +1,7 @@
 <nav id="nav" class="menu__container">
    <ul class="menu">
    
-   	<li class="menu__item"><a href="/"><svg class="icon" role="presentation"><use xlink:href="#framework_svg_map" /></svg><span class="menu__item__label">Garden</span></a></li>
+   	<li class="menu__item"><a href="/garden/"><svg class="icon" role="presentation"><use xlink:href="#framework_svg_map" /></svg><span class="menu__item__label">Garden</span></a></li>
 	   
 	<li class="menu__item"><a href="/poultry/"><svg class="icon" role="presentation"><use xlink:href="#framework_svg_chicken" /></svg><span class="menu__item__label">Poulty</span></a></li>
 

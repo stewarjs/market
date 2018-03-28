@@ -1,12 +1,21 @@
 <?php
 
 require_once('../core/layout/engine.php');
+require_once('../core/api/database.php');
 
+$db = new database();
 $page = new page();
 
 $page->title('Notes');
 $page->header();
 
+if(!empty($_POST)) {
+	$title = $_POST['title'];
+	$note = $_POST['note'];
+	
+	$return = $db->runSQL('INSERT INTO notes (title, date, content) VALUES ("' . $title . '", "' . date('Y-m-d') . '", "' . $note . '");');
+	
+}
 
 ?>
 
@@ -20,21 +29,25 @@ $page->header();
 		</button>
 	</div>
 </div>
-<button class="button button--blue">Add Note</button>
+<button id="add_note" class="button button--blue">Add Note</button>
 	
-<div class="note">
-<h3 class="note__header">Spring 2018</h3>	
-<p class="note__date">March 7, 2018</p>
-<div class="note__content">
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac lectus id diam tempus semper non eu orci. Nunc quis ligula molestie, porttitor sapien at, luctus orci. Vivamus eu nibh vulputate, elementum lectus in, venenatis quam. Aenean sapien erat, blandit et bibendum quis, vestibulum non ante. Etiam tempor consequat est sed dapibus. Praesent nec nisi felis. Ut venenatis, neque et vestibulum hendrerit, felis metus ornare magna, non tincidunt odio eros eget ante.</p>
-</div>
-<div class="note__footer">
-<button class="button button--gray note__button--edit">Edit</button>
-<button class="button button--gray button--red">Delete</button>
-</div>
-	
-</div>
+<?php
+	$notes = $db->runSQL('SELECT * FROM notes');
+	foreach($notes->result as $note) {
+		echo '<div class="note">' .
+			'<h3 class="note__header">'. $note['title'] .'</h3>' .	
+			'<p class="note__date">'. date("M j, Y", strtotime($note['date'])) .'</p>' .
+			'<div class="note__content">'.
+			'<p>'. $note['content'] .'</p>'.
+			'</div>'.
+			'<div class="note__footer">'.
+			'<button class="button button--gray note__button--edit">Edit</button>'.
+			'<button class="button button--gray button--red">Delete</button>'.
+			'</div></div>';
+	}
+?>
 </section>   
 <?php
+	$page->add_scripts(array('/core/layout/scripts/notes.js'));
 	$page->footer();
 ?>

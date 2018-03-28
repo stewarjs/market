@@ -338,11 +338,12 @@ input[type="search"].search {
     vertical-align: middle;
 }
 
-input[type="number"], input[type="date"] {
+input[type="number"], input[type="date"], textarea {
     padding: 10px;
     border-radius: 3px;
     border: 1px solid #cccccc;
     width: 100%;
+	font-family: Arial, sans-serif;
 }
 
 input[type="checkbox"].bird {

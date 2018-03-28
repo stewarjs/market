@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2018 at 08:38 PM
+-- Generation Time: Mar 28, 2018 at 11:11 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -55,8 +55,8 @@ CREATE TABLE `poultry` (
 --
 
 INSERT INTO `poultry` (`id`, `breed`, `birth`, `house`, `cost`, `eggs`) VALUES
-(1, 'Ameracauna', '2017-09-19', 1, '15.47', '6.50'),
-(2, 'Barred Rock', '2017-09-19', 1, '15.47', '6.50'),
+(1, 'Ameracauna', '2017-09-19', 1, '15.47', '13.00'),
+(2, 'Barred Rock', '2017-09-19', 1, '15.47', '13.00'),
 (3, 'Australorp', '2018-01-27', 4, '7.98', '0.00'),
 (4, 'Barred Rock', '2018-01-27', 4, '7.98', '0.00');
 
@@ -127,6 +127,24 @@ INSERT INTO `rain` (`date`, `amount`) VALUES
 ('2018-03-11', '1.40'),
 ('2018-03-16', '0.90');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `user` varchar(45) NOT NULL,
+  `pass` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user`, `pass`) VALUES
+('jeff', '$2y$10$lEw9w95pTlMfxIYOxuM3Bu5HHg2fVHP2PYg.mK1KVDTc7qn7Ngibu');
+
 --
 -- Indexes for dumped tables
 --
@@ -163,6 +181,12 @@ ALTER TABLE `rain`
   ADD PRIMARY KEY (`date`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -170,7 +194,7 @@ ALTER TABLE `rain`
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `poultry`

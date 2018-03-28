@@ -42,26 +42,7 @@ $( "#add_house" ).on('click', function() {
 	});
 
 });
-$( "#activity" ).on('click', function() {
-			
-	var def = $(this)[0].id;
-	$.modal({title: 'Poultry Activity', parentID: def, content: '<label for="house_list">Which house is this activity for?</label><?php echo $house_list; ?><label for="feed_list">Which product are you using?</label><?php echo $feed_list; ?><label for="amount" id="metric_amount">How much?</label><input type="number" step="0.01" name="amount" id="amount" />', footer: '<div class="button-group--directional align--right"><button type="reset" class="button button--gray modal__close">Close</button><button id="submit_activity" class="button button--blue">Add Activity</button></div>'});
-	$('#house_list, #feed_list').DropDown();
-	$('#feed_list').on('change', function() {
-		$('#metric_amount').html('How much (in ' + $('#feed_list option:selected')[0].getAttribute('data-metric') + ')?');
-	});
-	$('#submit_activity').on('click', function() {
-		$.ajax({
-			method: "POST",
-			url: "/core/api/poultry.php",
-			data: { addHouse: true, house: document.getElementById('house').value }
-		})
-		.done(function() {
-			window.location.reload(true);
-		});
-	});
 
-});
 $( "#delete_house" ).on('click', function() {
 			
 	var def = $(this)[0].id;
@@ -120,6 +101,28 @@ $( 'li[data-value="move_bird"]' ).on('click', function() {
 		.done(function() {
 			window.location.reload(true);
 		});*/
+	});
+
+});
+
+$( 'li[data-value="log_activity"]' ).on('click', function() {
+			
+	var def = 'bird_options__custom-select',
+		house_id = document.getElementById(def).getAttribute('data-house');
+	$.modal({title: 'Poultry Activity', parentID: def, content: '<input type="hidden" name="house_list" id="house_list" value="' + house_id + '" /><label for="feed_list">Which product are you using?</label><?php echo $feed_list; ?><label for="amount" id="metric_amount">How much?</label><input type="number" step="0.01" name="amount" id="amount" />', footer: '<div class="button-group--directional align--right"><button type="reset" class="button button--gray modal__close">Close</button><button id="submit_activity" class="button button--blue">Add Activity</button></div>'});
+	$('#feed_list').DropDown();
+	$('#feed_list').on('change', function() {
+		$('#metric_amount').html('How much (in ' + $('#feed_list option:selected')[0].getAttribute('data-metric') + ')?');
+	});
+	$('#submit_activity').on('click', function() {
+		$.ajax({
+			method: "POST",
+			url: "/core/api/poultry.php",
+			data: { addHouse: true, house: document.getElementById('house').value }
+		})
+		.done(function() {
+			window.location.reload(true);
+		});
 	});
 
 });
