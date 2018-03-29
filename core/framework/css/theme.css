@@ -373,6 +373,14 @@ input[type="checkbox"]:checked + .garden > .garden__icon, input[type="checkbox"]
 	color: #146e97;
 }
 
+.highlight {
+    background-color: #ffd400;
+}
+
+.no_match {
+	display: none;
+}
+
 @media (max-width: 895px) {
 	.logo__icon {
 		margin: auto;
