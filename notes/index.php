@@ -22,12 +22,12 @@ if(!empty($_POST)) {
 <section>
 <div class="page__header">     	
 	<h2 class="heading--small">Notes</h2>
-	<div>
-		<input class="search" type="search" name="search" id="search" placeholder="e.g. seedlings" />
-		<button class="button button--gray search__button" aria-label="Search">
+	<form id="note_search" action="index.php" method="post">
+		<input class="search" type="search" name="search" id="search" placeholder="e.g. seedlings" aria-label="Enter search term" />
+		<button type="submit" class="button button--gray search__button" id="search_button" aria-label="Search">
 			<svg class="icon" role="presentation"><use xlink:href="#framework_svg_search-ico" /></svg>
 		</button>
-	</div>
+	</form>
 </div>
 <button id="add_note" class="button button--blue">Add Note</button>
 	
