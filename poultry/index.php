@@ -20,6 +20,7 @@ if(isset($_GET['id'])){
 $page = new page();
 
 $page->title($title);
+$page->add_styles(array('/core/chartist/chartist.min.css'));
 $page->header();
 
 
@@ -31,8 +32,6 @@ $page->header();
 	<?php
 	if(isset($house_id)) {
 		echo '<button class="button button--gray button--red" data-house="' . $house_id . '" id="delete_house">Delete</button>';
-	}else{
-		echo '<button id="activity" class="button button--gray">Add Activity</button>';
 	}
 	?>
 </div>
@@ -65,7 +64,7 @@ $page->header();
 		}
 		echo $add_button;
 		/* <button class="button button--blue" id="move_bird" disabled>Move Bird(s)</button><button class="button button--gray button--red" id="delete_bird" disabled>Delete Bird(s)</button> */
-		echo '</div><aside class="flex__box--20 aside--right"><select data-update="false" data-house="'. $house_id .'" id="bird_options" aria-label="Select an option"><option selected disabled value="">Select an Option</option><option id="move_bird" value="move_bird">Move Bird(s)</option><option id="delete_bird" value=delete_bird"">Delete Bird(s)</option><option id="harvest_bird" value="harvest_bird">Harvest Bird(s)</option><option id="log_activity" value="log_activity" data-house="'. $house_id .'">Add Feed or Products</option><option id="log_eggs" value="log_eggs">Log Egg Production</option></select><h4 class="heading--label">House Stats</h4><ul class="stats"><li><span class="stats__value">' . round(total_eggs($house_id), 1) . '</span><span class="stats__label">Total Eggs</span></li><li><span class="stats__value">$' . round(total_cost($house_id), 2) . '</span><span class="stats__label">Total Costs</span></li></ul></aside></div>';
+		echo '</div><aside class="flex__box--20 aside--right"><select data-update="false" data-house="'. $house_id .'" id="bird_options" aria-label="Select an option"><option selected disabled value="">Select an Option</option><option id="move_bird" value="move_bird">Move Bird(s)</option><option id="delete_bird" value=delete_bird"">Delete Bird(s)</option><option id="harvest_bird" value="harvest_bird">Harvest Bird(s)</option><option id="log_activity" value="log_activity" data-house="'. $house_id .'">Add Feed or Products</option><option id="log_eggs" value="log_eggs">Log Egg Production</option></select><h4 class="heading--label">House Stats</h4><ul class="stats"><li><span class="stats__value">' . round(total_eggs($house_id), 1) . '</span><a href="#" data-house="'. $house_id . '" id="egg_timeline" class="stats__label">Total Eggs</a></li><li><span class="stats__value">$' . round(total_cost($house_id), 2) . '</span><span class="stats__label">Total Costs</span></li></ul></aside></div>';
 	}
 	
 	
@@ -76,6 +75,6 @@ $page->header();
 
 </section>   
 <?php
-	$page->add_scripts(array('/core/layout/scripts/poultry.php'));
+	$page->add_scripts(array('/core/chartist/chartist.min.js', '/core/layout/scripts/poultry.php'));
 	$page->footer();
 ?>

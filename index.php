@@ -5,7 +5,7 @@ require_once('core/layout/engine.php');
 $page = new page();
 
 $page->title('Home');
-$page->header();
+
 
 if(isset($_POST['username']) && isset($_POST['password'])) {
 	$status = $page->login($_POST['username'], $_POST['password']);
@@ -20,7 +20,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
 if(isset($_GET['logout'])) {
 	$page->logout();
 }
-
+$page->header();
 ?>
 
 <section>
