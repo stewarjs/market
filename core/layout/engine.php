@@ -15,7 +15,7 @@ class page extends authentication {
 			session_start();
 		}
 		//$_SESSION['Login_Attempts'] = 0;
-		if($this->is_logged_in() != true && dirname($_SERVER['PHP_SELF']) != '\\') {
+		if($this->is_logged_in() != true && dirname($_SERVER['PHP_SELF']) != '/') {
 			
 			header('Location: /index.php');
 			

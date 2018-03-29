@@ -29,7 +29,7 @@
 
         </header>
         <?php 
-			if(dirname($_SERVER['PHP_SELF']) != '\\'){
+			if(dirname($_SERVER['PHP_SELF']) != '/'){
 				$page->menu('sidemenu');
 				echo '<main class="layout--two-column" id="main">';
 			}else{
