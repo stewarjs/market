@@ -33,7 +33,7 @@ if(!empty($_POST)) {
 	
 <?php
 	$notes = $db->runSQL('SELECT * FROM notes');
-	foreach($notes->result as $note) {
+	foreach($notes as $note) {
 		echo '<div class="note">' .
 			'<h3 class="note__header">'. $note['title'] .'</h3>' .	
 			'<p class="note__date">'. date("M j, Y", strtotime($note['date'])) .'</p>' .

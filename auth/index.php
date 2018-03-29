@@ -48,10 +48,10 @@ class authentication extends database {
 			$sql = 'SELECT * FROM users WHERE user = "' . $this->sanitize($user) . '";';
 			$user_table = $this->runSQL($sql);
 			
-			if($user_table->result->num_rows == 0) {
+			if($user_table->rowCount() == 0) {
 				$this->errors = 4; // Incorrect login credentials
 			}else{
-				$user_table = $user_table->result->fetch_object();
+				$user_table = $user_table->fetchObject();
 				//return $user_table;
 				if(password_verify($pass, $user_table->pass)) {
 					$_SESSION['user_name'] = $user;

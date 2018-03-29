@@ -17,7 +17,7 @@ function get($sort = 'desc') {
 	}
 	
 	$list = [];
-	foreach($result->result as $row) {
+	foreach($result as $row) {
 		array_push($list, $row);
 	}
 	return $list;

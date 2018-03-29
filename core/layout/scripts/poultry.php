@@ -4,7 +4,7 @@ require_once('../../api/products.php');
 $houses = get_houses();
 $house_list = '<select id="house_list" data-width="100%"><option value="" selected disabled>Select a House</option>';
 $count = 1;
-foreach($houses->result as $house) {
+foreach($houses as $house) {
 	$house_list .= '<option value="' . $house['id'] . '">' . $house['name'] . '</option>';
 }
 $house_list .=  '</select>';
@@ -13,7 +13,7 @@ $poultry_products = get_products(array('Feed', 'Bedding'));
 
 $feed_list = '<select id="feed_list" data-width="100%"><option value="" selected disabled>Select a Product</option>';
 $count = 1;
-foreach($poultry_products->result as $feed) {
+foreach($poultry_products as $feed) {
 	$feed_list .= '<option data-metric="' . $feed['metric'] . '" value="' . $feed['id'] . '">' . $feed['name'] . '</option>';
 }
 $feed_list .=  '</select>';

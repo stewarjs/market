@@ -6,73 +6,50 @@ class database {
         
         // define connection variables
         $server = 'localhost';
-        $db = 'market';
-        $username = 'root';
-        $password = '';
+        $db = 'ashley_market';
+        $user = 'ashley_service';
+        $pass = 'root';
+		$charset = 'utf8';
+		
+		$dsn = "mysql:host=$server;dbname=$db;charset=$charset";
+		$opt = [
+			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+			PDO::ATTR_EMULATE_PREPARES   => false,
+		];
         
         // connect to database
-        $conn = new mysqli($server, $username, $password, $db);
+        //$conn = new mysqli($server, $username, $password, $db);
+		$pdo = new PDO($dsn, $user, $pass, $opt);
 
         // Check connection
-        if ($conn->connect_error) {
+        /*if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
-        }
-        return $conn;
+        }*/
+        //return $conn;
+		return $pdo;
     }
 	
-	protected function dynamicSQL ($metrics, $dimension, $filter) {
-		
-		$sql = 'SELECT ';
-		
-		// Get our metrics
-		//$count = 1;
-		foreach($metrics as $metric) {
-			if($metric === 'count') {
-				$sql .= 'count(reports_table.report_id) as count, ';
-			}else if ($metric !== 0){
-				$sql .= 'reports_table.'.$metric.', ';
-			}
-		};
-		
-		if($dimension == 'hour') {
-			$sql .= 'DATE_FORMAT(hunt_time, "%H%i") as hour FROM reports_table ';
-		}else{
-			$sql .= $dimension.' FROM reports_table ';
-		}
-		// Always include the species table
-		$sql .= 'LEFT JOIN (species_table) ON (reports_table.species_id = species_table.species_id) ';
-		
-		// Are filtering the data?
-		$sql .= $filter;
-		
-		// Group our data
-		$sql .= 'GROUP BY '.$dimension;
-		
-		return $sql;
-		
-		
-	}
-    
-    public function runSQL ($sql) {
+	public function runSQL ($sql) {
         $db = $this->connect();
         
         
         if (!$statement = $db->prepare($sql)) {
-            return 'Error preparing MySQL query: ' . $db->error;
+            return 'Error preparing MySQL query: ' . $db->errorCode();
         }
         
         if (!$statement->execute()) {
-            return 'Error executing MySQL query: ' . $db->error;
+            return 'Error executing MySQL query: ' . $db->errorCode();
         }
         
-        $result_object = new stdClass();
+        /*$result_object = new stdClass();
         $result_object->id = $statement->insert_id;
         
-        $result_object->result = $statement->get_result();
+        $result_object->result = $statement->get_result();*/
 
-        $db->close();
+        //$db->close();
         
-        return $result_object;
+        return $statement;
     }
     
 }

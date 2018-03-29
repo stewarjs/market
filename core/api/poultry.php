@@ -28,7 +28,7 @@ function add_eggs($house, $amount) {
 	$db = new database();
 	$db->connect();
 	$birds = $db->runSQL('SELECT * from poultry WHERE house=' . $house . ';');
-	$birds = $birds->result->num_rows;
+	$birds = $birds->rowCount();
 	
 	$amount = round($amount / $birds, 2);
 	return $db->runSQL('UPDATE poultry SET eggs = eggs + ' . $amount . ' WHERE house=' . $house . ';');
@@ -38,14 +38,14 @@ function total_eggs($house) {
 	$db = new database();
 	$db->connect();
 	$result = $db->runSQL('SELECT sum(eggs) as total from poultry WHERE house=' . $house . ';');
-	return $result->result->fetch_assoc()['total'];
+	return $result->fetchObject()->total;
 }
 
 function total_cost($house) {
 	$db = new database();
 	$db->connect();
 	$result = $db->runSQL('SELECT sum(cost) as total from poultry WHERE house=' . $house . ';');
-	return $result->result->fetch_assoc()['total'];
+	return $result->fetchObject()->total;
 }
 
 function add_house($name) {

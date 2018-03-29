@@ -8,7 +8,7 @@ $title = 'Poultry';
 if(isset($_GET['id'])){
 	$house_id = $_GET['id'];
 	$houses = get_houses($house_id);
-	$title = $houses->result->fetch_assoc()['name'];
+	$title = $houses->fetchObject()->name;
 	$add_button = '<button class="card garden garden--add" data-house="' . $house_id . '" id="add_bird"><svg class="garden__icon" viewBox="0 0 20 20"><path d="M10,1.6c-4.639,0-8.4,3.761-8.4,8.4s3.761,8.4,8.4,8.4s8.4-3.761,8.4-8.4S14.639,1.6,10,1.6z M15,11h-4v4H9
 	v-4H5V9h4V5h2v4h4V11z"/></svg><h3 class="heading--label garden__heading">Add Bird</h3></button>';
 }else{
@@ -40,9 +40,9 @@ $page->header();
 <?php
 	if(!isset($house_id)){
 		echo '<div class="inline-grid">';
-		foreach($houses->result as $house) {
+		foreach($houses as $house) {
 			$birds = get_birds($house['id']);
-			$bird_count = $birds->result->num_rows;
+			$bird_count = $birds->rowCount();
 			echo '<a class="card garden" href="index.php?id=' . $house['id'] . '"><svg class="garden__icon" role="presentation"><use xlink:href="#framework_svg_barn" /></svg><h3 class="heading--label garden__heading">' . $house['name'] . '</h3><span class="garden__date">Total birds: '. $bird_count .'</span></a>';
 		}
 		echo $add_button;
@@ -53,7 +53,7 @@ $page->header();
 		$now = new DateTime('now');
 		$birthdate = new DateTime();
 		echo '<div class="flex"><div class="inline-grid flex__box--70">';
-		foreach($birds->result as $bird) {
+		foreach($birds as $bird) {
 			$birthdate->setTimestamp(strtotime($bird['birth']));
 			$date = $birthdate->diff($now)->format("%a");
 			if($date > 7) {

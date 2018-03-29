@@ -9,7 +9,7 @@ $page->header();
 
 if(isset($_POST['username']) && isset($_POST['password'])) {
 	$status = $page->login($_POST['username'], $_POST['password']);
-	
+
 	if($status !== true) {
 		header('Location: index.php?error='. $status);
 	}else{
