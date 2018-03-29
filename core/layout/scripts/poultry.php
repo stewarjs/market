@@ -105,11 +105,19 @@ $( 'li[data-value="move_bird"]' ).on('click', function() {
 
 });
 
+$('#egg_timeline').on('click', function(event) {
+	
+	var def = $(this)[0].id,
+		houseID = $(this).attr('data-house');
+	$.modal({title: 'Total Eggs', parentID: def, loadContent: 'egg_timeline.php?house_id=' + houseID, footer: '<div class="button-group align--right"><button type="reset" class="button button--gray modal__close">Close</button></div>'});
+	event.preventDefault();
+});
+
 $( 'li[data-value="log_activity"]' ).on('click', function() {
 			
 	var def = 'bird_options__custom-select',
 		house_id = document.getElementById(def).getAttribute('data-house');
-	$.modal({title: 'Poultry Activity', parentID: def, content: '<input type="hidden" name="house_list" id="house_list" value="' + house_id + '" /><label for="feed_list">Which product are you using?</label><?php echo $feed_list; ?><label for="amount" id="metric_amount">How much?</label><input type="number" step="0.01" name="amount" id="amount" />', footer: '<div class="button-group--directional align--right"><button type="reset" class="button button--gray modal__close">Close</button><button id="submit_activity" class="button button--blue">Add Activity</button></div>'});
+	$.modal({title: 'Poultry Activity', parentID: def, content: '<input type="hidden" name="house_list" id="house_list" value="' + house_id + '" /><label for="feed_list">Which product are you using?</label><?php echo $feed_list; ?><label for="amount" id="metric_amount">How much?</label><input type="number" step="0.01" name="amount" id="amount" />', footer: '<div class="button-group--directional align--right"><button type="reset" class="button button--gray modal__close">Close</button><button id="submit_activity" class="button button--blue">Add</button></div>'});
 	$('#feed_list').DropDown();
 	$('#feed_list').on('change', function() {
 		$('#metric_amount').html('How much (in ' + $('#feed_list option:selected')[0].getAttribute('data-metric') + ')?');
@@ -130,7 +138,7 @@ $( 'li[data-value="log_activity"]' ).on('click', function() {
 $( 'li[data-value="log_eggs"]' ).on('click', function() {
 	var def = 'bird_options__custom-select',
 		house_id = document.getElementById(def).getAttribute('data-house');
-	$.modal({title: 'Log Eggs', parentID: def, content: '<label for="amount">How many eggs were collected?</label><input type="number" name="amount" id="amount" /><input type="hidden" name="house" id="house" value="' + house_id + '" />', footer: '<div class="button-group--directional align--right"><button type="reset" class="button button--gray modal__close">Close</button><button id="submit_eggs" class="button button--blue">Log Eggs</button></div>'});
+	$.modal({title: 'Log Eggs', parentID: def, content: '<label for="amount">How many eggs were collected?</label><input type="number" name="amount" id="amount" /><input type="hidden" name="house" id="house" value="' + house_id + '" />', footer: '<div class="button-group--directional align--right"><button type="reset" class="button button--gray modal__close">Close</button><button id="submit_eggs" class="button button--blue">Log</button></div>'});
 
 	$('#house_list').DropDown();
 

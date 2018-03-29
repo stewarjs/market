@@ -1,3 +1,10 @@
+var urlParams = new URLSearchParams(window.location.search);
+
+if(urlParams.has('term')) {
+	var search_term = urlParams.get('term');
+	searchThis(search_term);
+}
+
 $( "#add_note" ).on('click', function() {
 			
 	var def = $(this)[0].id;
@@ -5,11 +12,11 @@ $( "#add_note" ).on('click', function() {
 
 });
 
-$('#note_search').on('submit', function(event) {
+/*$('#note_search').on('submit', function(event) {
 	$('.highlight').removeClass('highlight');
 	searchThis(document.getElementById('search').value);
 	event.preventDefault();
-});
+});*/
 
 function searchThis(query) {
 	var regex = new RegExp(query, "i");
