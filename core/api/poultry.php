@@ -24,20 +24,33 @@ function get_houses($id = null) {
 	
 }
 
+function get_egg_timeline ($house) {
+	$db = new database();
+	$db->connect();
+	$result = $db->runSQL('SELECT sum(eggs_laid) as total, date FROM egg_production WHERE date > NOW() - INTERVAL 14 DAY AND house = '. $house . ' GROUP BY date ORDER BY date ASC;');
+	
+	$list = [];
+	foreach($result as $row) {
+		array_push($list, $row);
+	}
+	return $list;
+}
+
 function add_eggs($house, $amount) {
 	$db = new database();
 	$db->connect();
-	$birds = $db->runSQL('SELECT * from poultry WHERE house=' . $house . ';');
+	/*$ = $db->runSQL('SELECT * from poultry WHERE house=' . $house . ';');
 	$birds = $birds->rowCount();
 	
-	$amount = round($amount / $birds, 2);
-	return $db->runSQL('UPDATE poultry SET eggs = eggs + ' . $amount . ' WHERE house=' . $house . ';');
+	$amount = round($amount / $birds, 2);*/
+	//return $db->runSQL('UPDATE egg_production SET eggs_laid = eggs_laid + ' . $amount . ' WHERE house=' . $house . ';');
+	return $db->runSQL('INSERT INTO egg_production(eggs_laid, house, date) VALUES (' . $amount . ', ' . $house . ', "' . date('Y-m-d') . '");');
 }
 
 function total_eggs($house) {
 	$db = new database();
 	$db->connect();
-	$result = $db->runSQL('SELECT sum(eggs) as total from poultry WHERE house=' . $house . ';');
+	$result = $db->runSQL('SELECT sum(eggs_laid) as total from egg_production WHERE house=' . $house . ';');
 	return $result->fetchObject()->total;
 }
 
