@@ -86,7 +86,7 @@ body {
 }
 
 .flex__box--20 {
-	width: 20%;
+	width: 30%;
 }
 
 .aside--right {
@@ -119,15 +119,15 @@ table {
 	font-size: 1rem;
 }
 
-#chart--rain .ct-series-a .ct-line {
+.ct-series-a .ct-line {
     stroke: #118cc3;
 }
 
-#chart--rain .ct-series-a .ct-point {
+.ct-series-a .ct-point {
 	stroke: #146e97;
 }
 
-#chart--rain .ct-series-b .ct-line, #chart--rain .ct-series-b .ct-point {
+.ct-series-b .ct-line, .ct-series-b .ct-point {
     stroke: #afc6d0;
 }
 
@@ -152,7 +152,7 @@ table {
 .garden {
 	max-width: 200px;
 	width: 100%;
-	margin: 0 10px 0 0;
+	margin: 0 10px 30px 0;
 	display: inline-block;
 	vertical-align: top;
 	box-shadow: none;
@@ -160,6 +160,7 @@ table {
 	border-right: 1px solid #eaeaea;
 	text-decoration: none !important;
 	position: relative;
+	text-align: left;
 }
 
 .garden:nth-last-child(2) {
@@ -387,12 +388,13 @@ input[type="checkbox"]:checked + .garden > .garden__icon, input[type="checkbox"]
 	}
 }
 
-@media (max-width: 675px) {
+@media (max-width: 700px) {
 	.flex {
 		display: block;
 	}
 	.flex__box--70, .flex__box--20 {
 		width: 100%;
+		text-align: center;
 	}
 	.aside--right {
 		border: none;
