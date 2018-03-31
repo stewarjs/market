@@ -4906,7 +4906,7 @@ return $;
 	}
 	
 	var file     = getScriptPath() + '/img/icons.html',
-        revision = 1;
+        revision = 2;
 		
  
     if( !document.createElementNS || !document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' ).createSVGRect )
