@@ -85,13 +85,25 @@ if(!empty($_POST)) {
 	
 	if(isset($_GET['term'])) {
 		$term = $_GET['term'];
+		$results = [];
 		foreach($list as $item) {
-				if(!empty($item['file_path'])) {
-					echo $note->create($note->search($item['title'], $term), $item['date'], $note->search($item['content'], $term), $item['file_path']);
-				}else{
-					echo $note->create($note->search($item['title'], $term), $item['date'], $note->search($item['content'], $term));
+			if(!empty($item['file_path'])) {
+				$var =  $note->create($note->search($item['title'], $term), $item['date'], $note->search($item['content'], $term), $item['file_path']);
+				if(stripos($var, $term) !== false) {
+					array_push($results, $var);
+				}
+			}else{
+				$var = $note->create($note->search($item['title'], $term), $item['date'], $note->search($item['content'], $term));
+				if(stripos($var, $term) !== false) {
+					array_push($results, $var);
 				}
 			}
+		}
+		if(!empty($results)) {
+			echo implode(',', $results);
+		} else {
+			echo '<p>No notes matched your search term.</p>';
+		}
 	}else{
 		foreach($list as $item) {
 			if(!empty($item['file_path'])) {
