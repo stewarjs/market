@@ -1,10 +1,3 @@
-var urlParams = new URLSearchParams(window.location.search);
-
-if(urlParams.has('term')) {
-	var search_term = urlParams.get('term');
-	searchThis(search_term);
-}
-
 $( "#add_note" ).on('click', function() {
 			
 	var def = $(this)[0].id;
@@ -12,25 +5,3 @@ $( "#add_note" ).on('click', function() {
 
 
 });
-
-function searchThis(query) {
-	var regex = new RegExp(query, "i");
-	  $('.note').each(function() {
-		if (($(this).children('.note__header').text().search(regex) !== -1)) {
-			$(this).children('.note__header').html(selectMatch($(this).children('.note__header').text(), query));
-			($(this).hasClass('no_match') ? $(this).removeClass('no_match') : false);
-		}else if(($(this).children('.note__content').text().search(regex) !== -1)) {
-			$(this).children('.note__content').html(selectMatch($(this).children('.note__content').text(), query));
-			($(this).hasClass('no_match') ? $(this).removeClass('no_match') : false);
-		}else{
-			$(this).addClass('no_match');
-		}
-	  });
-}
-
-function selectMatch(haystack, needle) {
-    var reg = new RegExp(needle, 'gi'),
-    		occurrance = haystack.search(reg),
-    		selection = haystack.substr(occurrance - 100, 100);
-    return selection.replace(new RegExp('(^|)(' + needle + ')(|$)','ig'), '$1<span class="highlight">$2</span>$3');
-}

@@ -9,6 +9,41 @@ $page = new page();
 $page->title('Notes');
 $page->header();
 
+class note {
+	
+	public function create($title, $date, $content, $attachment = false) {
+		
+		$note = '<div class="note">' .
+				'<h3 class="note__header">'. $title .'</h3>' .	
+				'<time datetime="' . date("c", strtotime($date)) . '" class="note__date">'. date("M j, Y", strtotime($date)) .'</time>' .
+				'<div class="note__content">'.
+				'<p>'. $content .'</p></div>';
+				if($attachment !== false) {
+					$note .= '<div class="note__attachment"><a href="'. $attachment . '" target="_blank"><svg class="icon icon--small" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#framework_svg_attachment"></use></svg> ' . basename($attachment) . '</a></div>';
+				}
+				$note .= '<div class="note__footer">'.
+				'<button class="button button--gray note__button--edit">Edit</button>'.
+				'<button class="button button--gray button--red">Delete</button>'.
+				'</div></div>';
+		return $note;
+	}
+	
+	public function search($haystack, $needle) {
+		if (strlen($haystack) < 1 || strlen($needle) < 1) {
+			return $haystack;
+		}
+		preg_match_all("/$needle+/i", $haystack, $matches);
+		if (is_array($matches[0]) && count($matches[0]) >= 1) {
+			foreach ($matches[0] as $match) {
+				$haystack = str_replace($match, '<span class="highlight">'.$match.'</span>', $haystack);
+			}
+		}
+		return $haystack;
+	}
+	
+	
+}
+
 if(!empty($_POST)) {
 	$title = $_POST['title'];
 	$note = $_POST['note'];
@@ -25,7 +60,7 @@ if(!empty($_POST)) {
 		}
 	}else{
 	
-		$return = $db->runSQL('INSERT INTO notes (title, date, content) VALUES ("' . $title . '", "' . date('Y-m-d') . '", "' . $note . '", "");');
+		$return = $db->runSQL('INSERT INTO notes (title, date, content, file_path) VALUES ("' . $title . '", "' . date('Y-m-d') . '", "' . $note . '", "");');
 	}
 	
 }
@@ -45,21 +80,30 @@ if(!empty($_POST)) {
 <button id="add_note" class="button button--blue">Add Note</button>
 	
 <?php
-	$notes = $db->runSQL('SELECT * FROM notes');
-	foreach($notes as $note) {
-		echo '<div class="note">' .
-			'<h3 class="note__header">'. $note['title'] .'</h3>' .	
-			'<p class="note__date">'. date("M j, Y", strtotime($note['date'])) .'</p>' .
-			'<div class="note__content">'.
-			'<p>'. $note['content'] .'</p></div>';
-			if(isset($note['file_path'])) {
-				echo '<div class="note__attachment"><a href="'. $note['file_path'] . '" target="_blank"><svg class="icon icon--small" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#framework_svg_attachment"></use></svg> ' . basename($note['file_path']) . '</a></div>';
+	$note = new note();
+	$list = $db->runSQL('SELECT * FROM notes');
+	
+	if(isset($_GET['term'])) {
+		$term = $_GET['term'];
+		foreach($list as $item) {
+				if(!empty($item['file_path'])) {
+					echo $note->create($note->search($item['title'], $term), $item['date'], $note->search($item['content'], $term), $item['file_path']);
+				}else{
+					echo $note->create($note->search($item['title'], $term), $item['date'], $note->search($item['content'], $term));
+				}
 			}
-			echo '<div class="note__footer">'.
-			'<button class="button button--gray note__button--edit">Edit</button>'.
-			'<button class="button button--gray button--red">Delete</button>'.
-			'</div></div>';
+	}else{
+		foreach($list as $item) {
+			if(!empty($item['file_path'])) {
+				echo $note->create($item['title'], $item['date'], $item['content'], $item['file_path']);
+			}else{
+				echo $note->create($item['title'], $item['date'], $item['content']);
+			}
+		}
 	}
+	
+	
+	
 ?>
 </section>   
 <?php
