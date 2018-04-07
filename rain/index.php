@@ -5,10 +5,10 @@ require_once('../core/api/rain.php');
 
 $list = get();
 if(!empty($list)) {
-	$rain_total = 0;
-	foreach($list as $entry) {
+	$rain_total = weekly_rain()->fetchObject()->total;
+	/*foreach($list as $entry) {
 		$rain_total = $rain_total + $entry['amount'];
-	}
+	}*/
 	$now = new DateTime('now');
 	$last_rainfall = new DateTime($list[0]['date']);
 	$last_amount = $list[0]['amount'];
@@ -41,7 +41,7 @@ $page->header();
 	<h4 class="heading--label">Stats</h4>
 	<ul class="stats">
 		<li><span class="stats__value"><?php echo $last_amount; ?>"</span><span class="stats__label"><?php echo $interval; ?></span></li>	
-		<li><span class="stats__value"><?php echo $rain_total; ?>"</span><span class="stats__label">Rain this month</span></li>
+		<li><span class="stats__value"><?php echo $rain_total; ?>"</span><span class="stats__label">Rain this week</span></li>
 	</ul>
 	</aside>
 	

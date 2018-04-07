@@ -23,6 +23,13 @@ function get($sort = 'desc') {
 	return $list;
 }
 
+function weekly_rain() {
+	$db = new database();
+	$db->connect();
+	$result = $db->runSQL('SELECT sum(amount) as total FROM rain WHERE date > NOW() - INTERVAL 7 DAY;');
+	return $result;
+}
+
 function add($date, $amount) {
 	$db = new database();
 	$db->connect();
