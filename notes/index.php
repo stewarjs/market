@@ -81,7 +81,7 @@ if(!empty($_POST)) {
 	
 <?php
 	$note = new note();
-	$list = $db->runSQL('SELECT * FROM notes');
+	$list = $db->runSQL('SELECT * FROM notes ORDER BY date DESC');
 	
 	if(isset($_GET['term'])) {
 		$term = $_GET['term'];
