@@ -205,9 +205,16 @@ table {
 }
 
 .garden__heading {
-    margin: 0;
+    margin: 0 0 5px 0;
     padding: 0 10px;
-	color: #545454;
+    color: #545454;
+    line-height: 1rem;
+}
+
+.garden__heading__variety {
+    font-size: .8rem;
+    font-weight: normal;
+    font-style: italic;
 }
 
 .garden--add .garden__heading {
@@ -288,6 +295,7 @@ table {
 .note {
     border: 1px solid #e1e1e1;
     border-radius: 10px;
+	margin: 0 0 20px 0;
 }
 
 .note__header {
@@ -409,6 +417,22 @@ input[type="checkbox"]:checked + .garden > .garden__icon, input[type="checkbox"]
 
 .attach_file:hover .icon, .attach_file:focus .icon {
     fill: #146e97;
+}
+
+.svg {
+    width:800px;
+    height:400px;
+    overflow: visible;
+    margin: auto;
+}
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.3;
+    shape-rendering: crispEdges;
+}
+.grid path {
+      stroke-width: 0;
 }
 
 @media (max-width: 895px) {
