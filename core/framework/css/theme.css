@@ -435,6 +435,28 @@ input[type="checkbox"]:checked + .garden > .garden__icon, input[type="checkbox"]
       stroke-width: 0;
 }
 
+.plant_details {
+	display: flex;
+    flex-wrap: wrap;
+}
+
+.plant_details__property, .plant_details__value {
+	margin: 0;
+    flex-grow: 1;
+    border: 1px solid #e1e1e1;
+    padding: 8px 15px;
+}
+
+.plant_details__property {
+	width: 40%;
+    background-color: #b8c0c8;
+    border-color: #a9b3bc;
+}
+
+.plant_details__value {
+	width: 60%;
+}
+
 @media (max-width: 895px) {
 	.logo__icon {
 		margin: auto;

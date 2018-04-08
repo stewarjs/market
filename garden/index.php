@@ -53,6 +53,28 @@ if(isset($_GET['id'])){
 		echo $add_button;
 	}else if(isset($_GET['schedule'])){
 		echo '<div class = "svg"></div><div id = "tag"></div>';
+
+		echo '<h3 class="heading--small">Plant Details</h3>';
+		$plants = get_plants($bed_id);
+		$date_conversion = new DateTime();
+		foreach($plants as $plant) {
+			echo '<dl class="plant_details">'.
+				'<dt class="plant_details__property">Plant</dt>'.
+				'<dd class="plant_details__value">' . $plant['name'] . '</dd>' .
+				'<dt class="plant_details__property">Variety</dt>'.
+				'<dd class="plant_details__value">' . $plant['variety'] . '</dd>';
+			
+				$date_conversion->setDate(date('Y', strtotime($plant['plant_date'])), date('m', strtotime($plant['plant_date'])), date('d', strtotime($plant['plant_date'])));
+			
+				$date_conversion->add(date_interval_create_from_date_string('"' . $plant['days_to_maturity'] . ' days"'));
+			
+			echo '<dt class="plant_details__property">Date Planted</dt>'.
+				'<dd class="plant_details__value">' . date('M d', strtotime($plant['plant_date'])) . '</dd>'.
+				'<dt class="plant_details__property">Harvest By</dt>'.
+				'<dd class="plant_details__value">' . $date_conversion->format('M d') . '</dd>'.
+				'</dl>';
+		}
+
 	}
 	
 	
