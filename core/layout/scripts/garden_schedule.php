@@ -9,7 +9,7 @@ header('Content-Type: application/javascript');
 	  var h = 400;
 
 
-	  var svg = d3.selectAll(".svg")
+	  var svg = d3.selectAll(".svg_container")
 	  //.selectAll("svg")
 	  .append("svg")
 	  .attr("width", w)

@@ -419,6 +419,11 @@ input[type="checkbox"]:checked + .garden > .garden__icon, input[type="checkbox"]
     fill: #146e97;
 }
 
+.svg_container {
+	width: 100%;
+	overflow-x: auto;
+}
+
 .svg {
     width:800px;
     height:400px;

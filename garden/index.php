@@ -52,7 +52,7 @@ if(isset($_GET['id'])){
 		}
 		echo $add_button;
 	}else if(isset($_GET['schedule'])){
-		echo '<div class = "svg"></div><div id = "tag"></div>';
+		echo '<div class="svg_container"></div><div id="tag"></div>';
 
 		echo '<h3 class="heading--small">Plant Details</h3>';
 		$plants = get_plants($bed_id);
